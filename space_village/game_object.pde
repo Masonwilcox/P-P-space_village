@@ -4,7 +4,7 @@ abstract class GameObject {
   PVector location;
   int lives;
   PVector velocity;
-    PVector velomax;
+  PVector velomax;
   PVector direction;
 
   GameObject() {
@@ -13,9 +13,6 @@ abstract class GameObject {
   void show() {
   }
   void act() {
-    
-
-
   }
   boolean alive() {
 

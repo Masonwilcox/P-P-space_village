@@ -4,7 +4,7 @@ class Ship extends GameObject {
   // changeable
   float velo=5;
   float fireRate=100;
-  float effeciency=0.05;
+  float effeciency=0.1;
   //changeable
   int i, x, y;
   PVector direction;
@@ -15,7 +15,7 @@ class Ship extends GameObject {
 
   Ship() {
     lives = 3;
-    thrust= -0.015;
+    thrust= -0.02;
     thrusters= thrust;
     location = new PVector (width/2, height/2);
     velocity = new PVector(0, 0);
@@ -31,10 +31,6 @@ class Ship extends GameObject {
     pushMatrix();
     translate(location.x, location.y);
     rotate(direction.heading());
-    if (i>fireRate) {
-
-      image(Bullet, -5, 0);
-    }
     image(Shipimg, 0, 0);
     stroke(255);
     strokeWeight(1);
@@ -44,22 +40,17 @@ class Ship extends GameObject {
     ellipse(0, 0, 70, 70);
     fill(255, x);
     ellipse(0, 0, 70, 70);
+
+
+
+
+
     popMatrix();
   }
 
   void act() {
 
     super.act();
-
-
-
-
-
-
-
-
-
-    //deceleration
     if (velocity.x<-0.01) {
       //velocity.x.add(airResistance.x);
       velocity.x=velocity.x+airResistance.x;
@@ -79,7 +70,7 @@ class Ship extends GameObject {
       // velocity.y.sub(airResistance.y);
       velocity.y=velocity.y-airResistance.y;
     }
-    println("velo"+velocity.x);
+    //println("velo"+velocity.x);
 
 
 
@@ -113,19 +104,18 @@ class Ship extends GameObject {
     }
 
     if (fuel>0) {
-      if (upkey) {
+      if (upkey || wkey) {
         velocity.add(direction);
         fuel = fuel-effeciency;
       }
-      if (downkey) {
+      if (downkey || skey) {
         velocity.sub(direction);
         fuel = fuel-effeciency;
       }
     }
-    pushMatrix();
-    if (leftkey) direction.rotate(-radians(3) );
-    if (rightkey) direction.rotate(radians(3) );
-    popMatrix();
+    if (leftkey || akey) direction.rotate(-radians(3) );
+    if (rightkey || dkey) direction.rotate(radians(3) );
+
     i++;
     if (spacekey&&i>fireRate) {
       myGameObjects.add(new Bullet());
@@ -135,7 +125,7 @@ class Ship extends GameObject {
       x=0;
     }
     x--;
-    println("x"+x);
+    //println("x"+x);
     if (Xkey&&x<1) {
       location = new PVector(random(50, 950), random(50, 750));
       x=255;
