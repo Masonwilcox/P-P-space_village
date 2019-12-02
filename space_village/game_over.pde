@@ -1,8 +1,3 @@
-void gameOver(){
-    background(red);
-  
-  
-  
-  
-  
+void gameOver() {
+  background(red);
 }

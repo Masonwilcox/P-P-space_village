@@ -1,7 +1,7 @@
 int j;
 void game() {
-  
-textSize(15);
+
+
   shipTimer--;
   background(20);
 
@@ -19,7 +19,7 @@ textSize(15);
       j++;
     }
   }
-  
+
 
   px=roomx;
   py=roomy;
@@ -32,7 +32,7 @@ textSize(15);
   switchRoom();
   //color here = map.get(roomx,roomy);
   fill (30, 100);
- // rect (0, 0, width, height);
+  // rect (0, 0, width, height);
 
   if (n) {
     //top
@@ -55,9 +55,9 @@ textSize(15);
     ellipse (0, 0, 20, 800);
   }
   ///////-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-fill(255);
-text("lives:"+myShip.lives,20,20,50);
-text("fuel:"+fuel,90,20,50);
+  fill(255);
+  text("lives:"+myShip.lives, 20, 20, 50);
+  text("fuel:"+fuel, 90, 20, 50);
 
 
   ///////-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -65,36 +65,39 @@ text("fuel:"+fuel,90,20,50);
 
 
   ///////-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
- 
 
-  println("x"+roomx);
-  println("y"+roomy);
+
+  //println("x"+roomx);
+  //println("y"+roomy);
 
 
   while (starCount() <roomx+roomy) { 
     myGameObjects.add(new Stars());
   }
-   if (px!=roomx||py!=roomy) { 
-starKiller();
+  if (px!=roomx||py!=roomy) { 
+    starKiller();
   }
   if (starCount() >roomx+roomy) { 
-starKiller();
+    starKiller();
   }
-  
-  
-    if (l==0){
-     myGameObjects.add(new MotherShip());
-     l++;
+
+
+  if (l==0) {
+    myGameObjects.add(new MotherShip());
+    l++;
   }
-  
+
+
   myShip.show();
   myShip.act();
-  
-  if (ShipInteract==true){
+
+  if (ShipInteract==true) {
     shipInteract();
-  }else{
-    store=false;
-    
+  } else {
+  }
+
+  if (rkey && mode == game) {
+  mode = Radio;
   }
 }
 
@@ -127,16 +130,19 @@ int starCount() {
 }
 
 
+
+
 void switchRoom() {
 
   n=s=w=e=false;
 
 
   color here = map.get(roomx, roomy);
-  color north=map.get(roomx, roomy-1);
-  color south=map.get(roomx, roomy+1);
-  color east=map.get(roomx+1, roomy);
-  color west=map.get(roomx-1, roomy);
+  color north = map.get(roomx, roomy-1);
+  color south = map.get(roomx, roomy+1);
+  color east = map.get(roomx+1, roomy);
+  color west = map.get(roomx-1, roomy);
+  color room = map.get(roomx, roomy);
 
 
   if (north!=white2) {
@@ -150,5 +156,12 @@ void switchRoom() {
   }
   if (west!=white2) {
     w=true;
+  }
+  if (room != white2 && room != black) {
+    int worm = int(random (1, 1));
+    for (int i = 0; i < worm; i++) //println(""+i); 
+    {
+      //myGameObjects.add(new Wormhole(roomx, roomy));
+    }
   }
 }
